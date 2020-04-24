@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../bootstrap/bootstrap/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="../stylesheet/style.css">
+
+    <link rel="stylesheet" href="../bootstrap/fontawesom/fontawesome-free-5.13.0-web/css/all.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+    <script src="../JS/main.js"></script>
+    
+
+    
+    <title>Flipshope Table</title>
+  </head>
+  <body ng-app="myApp" ng-controller="myController">
+    
+    <div class="container">
+      <hr>
+      <button type="button" class="btn btn-info btn-lg right-btn" data-toggle="modal" data-target="#exampleModal">Add New</button>
+      <span class="cleafix"></span>
+
+      <h2 class="heading">Add Users</h2>
+      <hr>
+
+      <div class="alert alert-info" role="alert" ng-if="message">
+        {{message}}
+        <button type="button" class="close"  ng-click=clearMessage()>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Medicine</th>
+            <th>Age</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat = "user in users">
+            <td>{{$index+1}}.</td>
+            <td>{{user.name}}</td>           
+            <td>{{user.email}}</td>
+            <td>{{user.medecine}}</td>
+            <td>{{user.age}}</td>
+            <td>
+              <button type="button" class="btn btn-info"  data-toggle="modal" data-target="#exampleModalEdit" ng-click="selectUser(user)"><i class="fas fa-edit"></i></button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalDelete" ng-click="selectUser(user)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+          <!-- <tr>
+            <td>2.</td>
+            <td>Mary Moe</td>           
+            <td>mary@example.com</td>
+            <td></td>
+            <td>32</td>
+            <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button></td>
+            <td><button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td>July Dooley</td>           
+            <td>july@example.com</td>
+            <td></td>
+            <td>39</td>
+            <td><button type="button" class="btn btn-info"><i class="fas fa-edit"></i></button></td>
+            <td><button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+          </tr> -->
+        </tbody>
+      </table>
+
+<!-- Modal -->
+
+<!-- Add user Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add new users</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+        <form>
+          <div class="form-group">
+            <label for="exampleInputName">Name</label>
+            <input type="text" class="form-control" id="exampleInputName" placeholder="Enter Full Name" ng-model = "newUser.name">           
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" ng-model = "newUser.email">           
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputDOB">Date Of Birth</label>
+            <input type="text" class="form-control" id="exampleInputDOB" placeholder="Date of Birth" ng-model = "newUser.dob">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputMedicine">Medicine</label>
+            <input type="text" class="form-control" id="exampleInputMedicine" placeholder="Name of Medicine" ng-model = "newUser.medecine">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputCountry">Country</label>
+            <input type="text" class="form-control" id="exampleInputCountry" placeholder="Country" ng-model = "newUser.country">
+          </div>
+          
+          <div class="form-group">          
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click = "saveUser()">Submit</button>
+            </div>
+          </div>
+         
+        </form>
+
+      </div>
+    </div>
+  </div>
+  
+    <!-- edit user Modal -->
+
+  <div class="modal fade" id="exampleModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Please Update</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         
+          <form>
+            <div class="form-group">
+              <label for="exampleInputName">Name</label>
+              <input type="text" class="form-control" id="exampleInputName" placeholder="Enter Full Name" ng-model="editUser.name">           
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" ng-model="editUser.email">           
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputDOB">Date Of Birth</label>
+              <input type="text" class="form-control" id="exampleInputDOB" placeholder="Date of Birth" ng-model="editUser.dob">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputMedicine">Medicine</label>
+              <input type="text" class="form-control" id="exampleInputMedicine" placeholder="Name of Medicine" ng-model="editUser.medecine">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputCountry">Country</label>
+              <input type="text" class="form-control" id="exampleInputCountry" placeholder="Country" ng-model="editUser.country">
+            </div>
+            
+            <div class="form-group">            
+                <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="updateUser()">Submit Changes</button>
+              </div>
+            </div>
+           
+          </form>
+  
+        </div>
+      </div>
+    </div>
+
+    <!-- delete user Modal -->
+
+    <div class="modal fade" id="exampleModalDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+            <strong style="color: red;">You are going to delete {{editUser.name}}</strong>
+
+            <div class="modal-footer">             
+              <button type="submit" class="btn btn-primary" data-dismiss="modal" ng-click="deleteUser()">Yes</button>
+              <button type="submit" class="btn btn-primary" data-dismiss="modal">No</button>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+</div>
+   
+    </div>
+        
+    
+    </body>
+    </html>
+    
+    </div>
+
+
+
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

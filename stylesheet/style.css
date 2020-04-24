@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.right-btn{
+    margin: 20px;
+    padding: 10px;
+    float: right;
+}
+.heading{
+    margin: 40px;
+    
+}
